@@ -1,6 +1,24 @@
 let link;
 
-export function blobToVideo(blob, width, height) {
+function humanFileSize(bytes) {
+  if (Math.abs(bytes) < 1024) {
+    return bytes + ' B';
+  }
+
+  const units = ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+  let u = -1;
+  const r = 10;
+
+  do {
+    bytes /= 1024;
+    ++u;
+  } while (Math.round(Math.abs(bytes) * r) / r >= 1024 && u < units.length - 1);
+
+
+  return bytes.toFixed(1) + ' ' + units[u];
+}
+
+export function blobToVideo(blob, width, height, string) {
   const video = document.createElement("video");
   video.setAttribute("muted", "muted");
   video.setAttribute("autoplay", "autoplay");
@@ -13,10 +31,12 @@ export function blobToVideo(blob, width, height) {
   const url = URL.createObjectURL(blob);
   video.src = url;
 
+  var bytes = humanFileSize(blob.size);
+
   const link = document.createElement("a");
   link.download = `${getTimestamp()}.mp4`;
   link.href = url;
-  link.textContent = "Download MP4...";
+  link.textContent = `Download ${string}...${bytes}`;
 
   const container = document.createElement("div");
   container.style.cssText = "display: flex; flex-direction: column;";
