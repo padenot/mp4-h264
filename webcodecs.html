@@ -3,9 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./webcodecs.js" type="module"></script>
     <title>test</title>
   </head>
   <body>
-    <script src="./webcodecs.js" type="module"></script>
+    <div>
+    MP4 (h264) Encoding progress:
+    <progress id=mp4 min=0 max=100 step=1></progress>
+  </div>
+  <div>
+    WebM (vp9) encoding progress:
+    <progress id=webm min=0 max=100 step=1></progress>
+  </div>
+  <div>
+    Frames submitted progress:
+    <progress id=input min=0 max=100 step=1></progress>
+  </div>
   </body>
 </html>
